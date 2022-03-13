@@ -58,5 +58,31 @@ function valueReducer(prevState =0, action) {
       return prevState;
   }
 }
+
+
+// Action creator
+
+function increment() {
+  return {
+    type: 'increment'
+  }
+}
+function decrement() {
+  return {
+    type: 'decrement'
+  }
+}
+function setShowLabel(payload) {
+  return {
+    type: 'show-label',
+    payload: payload
+  }
+}
+
 const store = createStore(appReducer);
 export default store;
+export {
+  increment,
+  decrement,
+  setShowLabel
+}

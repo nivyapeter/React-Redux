@@ -1,15 +1,13 @@
 import React from 'react';
 import { useSelector,useDispatch} from 'react-redux';
 import "../styles/showlabel.css";
+import { setShowLabel } from "../redux/store";
 
 const ShoeLabel = () => {
     const dispatch = useDispatch();
     const handleShowChange = (e) => {
         const checkBoxValue= e.target.checked;
-        dispatch ({
-            type: 'show-label',
-            payload: checkBoxValue
-        });
+        dispatch (setShowLabel(checkBoxValue));
 
     }
     const val = useSelector((state) => state.showLabel);
