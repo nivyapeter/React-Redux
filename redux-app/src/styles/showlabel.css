@@ -1,0 +1,35 @@
+.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin: auto;
+}
+.label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    margin: auto;
+}
+.label1 {
+    background-color: red;
+    color: white;
+    border-radius: 8px;
+    border: 1px solid gray;
+    padding: 1rem;
+}
+.label2 {
+    background-color: black;
+    color: white;
+    border-radius: 8px;
+    border: 1px solid gray;
+    padding: 1rem;
+}
+.label3 {
+    background-color: blue;
+    color: white;
+    border-radius: 8px;
+    border: 1px solid gray;
+    padding: 1rem;
+}
