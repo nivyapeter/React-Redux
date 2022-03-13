@@ -10,13 +10,13 @@ export default function Ussage() {
   return (
     <div>
       <div class="ussage">
-        <button class="btn" onclick={() => {
+        <button class="btn" onClick={() => {
             dispatch({
                 type:'increment'
             });
         }}>Increment</button>
         <label class="label">{value}</label>
-        <button class="btn" onclick={() => {
+        <button class="btn" onClick={() => {
              dispatch({
                 type:'decrement'
             });
