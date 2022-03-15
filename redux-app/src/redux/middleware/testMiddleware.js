@@ -1,7 +1,11 @@
-function testMiddleWare(store) {
+function testMiddleWare({dispatch,getState}) {
     return (next) => {
         return(action) => {
-        //   logic
+            console.log('Prv_state',getState());
+         next({
+             type: 'increment'
+         });
+         console.log('Next_state',getState());
         }
     }
 }

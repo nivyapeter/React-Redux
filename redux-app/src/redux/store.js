@@ -1,6 +1,6 @@
 import { createStore ,combineReducers, applyMiddleware} from "redux";
-import testMiddleWare from "./middleware/testMiddleware";
-
+// import testMiddleWare from "./middleware/testMiddleware";
+import logger from "redux";
 // const initialState = {
 //   value: 0,
 //   showLabel: true
@@ -79,7 +79,7 @@ function setShowLabel(payload) {
   }
 }
 
-const store = createStore(appReducer , applyMiddleware(testMiddleWare));
+const store = createStore(appReducer , applyMiddleware(logger));
 export default store;
 export {
   increment,
