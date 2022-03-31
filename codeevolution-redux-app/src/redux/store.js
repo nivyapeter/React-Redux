@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from "redux"
+import { combineReducers, createStore, applyMiddleware } from "redux"
+import logger from "react-redux"
 
 // action
 function buyCake () {
@@ -18,9 +19,9 @@ function iceCreame () {
 // reducer
 const initialState = {
     numOfCakes:10,
-    flavour: choclate,
+    // flavour: choclate,
     numberOfIcecreams:20,
-    iceCreameFlavour: pistha,
+    // iceCreameFlavour: pistha,
 
 }
 
@@ -50,7 +51,7 @@ const rootReducer = combineReducers({
 })
 // store
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer,applyMiddleware(logger))
 console.log('initialState', store.getState())
 const unSubscribe = store.subscribe(() => console.log('updated state',store.getState()))
 store.dispatch(buyCake())
@@ -59,3 +60,4 @@ store.dispatch(buyCake())
 store.dispatch(iceCreame ())
 store.dispatch(iceCreame ())
 unSubscribe();
+export default store;
