@@ -1,63 +1,85 @@
-import { combineReducers, createStore, applyMiddleware } from "redux"
-import logger from "react-redux"
+// import { combineReducers, createStore, applyMiddleware } from "redux"
+// import logger from "react-redux"
 
-// action
-function buyCake () {
-    return {
-        type:buyCake,
-        info:'first redux action'
-    }
-}
+import { createStore } from "redux";
+import cakeReducer from "./cake/cakeReducer";
 
-function iceCreame () {
-    return {
-        type:iceCreame,
-        info:'first redux action'
-    }
-}
 
-// reducer
-const initialState = {
-    numOfCakes:10,
-    // flavour: choclate,
-    numberOfIcecreams:20,
-    // iceCreameFlavour: pistha,
 
-}
 
-const cakeReducer = (state=initialState,action) => {
-    switch(action.type) {
-        case buyCake: return {
-            ...state,
-            numOfCakes: state.numOfCakes-1
-        }
-        default: return  state;
-    }
-}
+//  action#######################################
+// function buyCake () {
+//     return {
+//         type:buyCake,
+//         info:'first redux action'
+//     }
+// }
 
-const iceCreameReducer = (state=initialState,action) => {
-    switch(action.type) {
-        case iceCreame: return {
-            ...state,
-            numberOfIcecreams: state.numberOfIcecreams-1
-        }
-        default: return  state;
-    }
-}
+// function iceCreame () {
+//     return {
+//         type:iceCreame,
+//         info:'first redux action'
+//     }
+// }
 
-const rootReducer = combineReducers({
-    cake: cakeReducer,
-    iceCreame: iceCreameReducer,
-})
-// store
 
-const store = createStore(rootReducer,applyMiddleware(logger))
-console.log('initialState', store.getState())
-const unSubscribe = store.subscribe(() => console.log('updated state',store.getState()))
-store.dispatch(buyCake())
-store.dispatch(buyCake())
-store.dispatch(buyCake())
-store.dispatch(iceCreame ())
-store.dispatch(iceCreame ())
-unSubscribe();
-export default store;
+
+
+
+
+
+// reducer#############################################3
+// const initialState = {
+//     numOfCakes:10,
+//     flavour: choclate,
+//     numberOfIcecreams:20,
+//     iceCreameFlavour: pistha,
+
+// }
+
+// const cakeReducer = (state=initialState,action) => {
+//     switch(action.type) {
+//         case buyCake: return {
+//             ...state,
+//             numOfCakes: state.numOfCakes-1
+//         }
+//         default: return  state;
+//     }
+// }
+
+// const iceCreameReducer = (state=initialState,action) => {
+//     switch(action.type) {
+//         case iceCreame: return {
+//             ...state,
+//             numberOfIcecreams: state.numberOfIcecreams-1
+//         }
+//         default: return  state;
+//     }
+// }
+
+// const rootReducer = combineReducers({
+//     cake: cakeReducer,
+//     iceCreame: iceCreameReducer,
+// })
+
+
+
+
+
+
+//  store#################################################################################
+// const store = createStore(rootReducer,applyMiddleware(logger))
+// console.log('initialState', store.getState())
+// const unSubscribe = store.subscribe(() => console.log('updated state',store.getState()))
+// store.dispatch(buyCake())
+// store.dispatch(buyCake())
+// store.dispatch(buyCake())
+// store.dispatch(iceCreame ())
+// store.dispatch(iceCreame ())
+// unSubscribe();
+// export default store;
+
+
+
+const store = createStore(cakeReducer)
+export default store
