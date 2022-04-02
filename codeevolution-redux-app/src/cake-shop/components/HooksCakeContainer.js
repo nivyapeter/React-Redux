@@ -1,12 +1,15 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import buyCake from '../../redux/cake/cakeActions'
 
 function HooksCakeContainer() {
-    const numOfCakes = useSelector(state => state.numOfCakes)
+    const numOfCakes = useSelector(state => state.numOfCakes
+    )
+    const dispatch = useDispatch()
   return (
     <div>
-        <h2>Number of cakes - </h2>
-        <button>BUY CAKES</button>
+        <h2>Number of cakes - {numOfCakes} </h2>
+        <button onClick={()=>dispatch(buyCake())}>BUY CAKES</button>
     </div>
   )
 }
