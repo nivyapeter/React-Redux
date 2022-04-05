@@ -1,0 +1,18 @@
+body {
+    margin:auto;
+    /* width: 70%; */
+}
+nav {
+    color:blue;
+    background-color: lightblue;
+    padding: 2rem;
+    text-decoration: none;
+}
+nav:hover {
+    color: red;
+    background-color: lightcyan;
+    text-decoration: underline;
+}
+nav a {
+    margin: 1rem;
+}
