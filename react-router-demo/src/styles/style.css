@@ -6,13 +6,17 @@ nav {
     color:blue;
     background-color: lightblue;
     padding: 2rem;
-    text-decoration: none;
+    /* text-decoration: none; */
 }
-nav:hover {
+/* nav:hover {
     color: red;
     background-color: lightcyan;
     text-decoration: underline;
-}
+} */
 nav a {
     margin: 1rem;
 }
+/* nav a.active {
+    text-decoration: none;
+    font-family: bold;
+} */
