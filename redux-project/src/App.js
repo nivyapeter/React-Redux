@@ -1,20 +1,20 @@
 import Header from "./containers/Header";
-import {BrowserRouter as Router, Switch,Route } from "react-router-dom";
+import {BrowserRouter as Router,Route,Routes } from "react-router-dom";
 import ProductListing from "./containers/ProductListing";
 import ProductDetails from "./containers/ProductDetails";
 
 function App() {
   return (
+    <Router>
     <div>
-      <Router>
-        <Header />
-        <Switch>
-        <Route path="/"exact component={ProductListing} />
-        <Route path="/product/:productid"exact component={ProductDetails} />
+      <Header />
+      <Routes>
+       <Route path="/" element={<ProductListing />}/>
+        <Route path="/product/:productid" element={<ProductDetails />} />
         <Route>404 Not Found</Route>
-        </Switch>
-     </Router>
+     </Routes>
     </div>
+    </Router>
   );
 }
 
