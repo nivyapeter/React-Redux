@@ -5,7 +5,6 @@ import "../styles/style.css";
 const ProductComponent = () => {
   const products = useSelector((state) => state.allproducts.products);
   const {id,title} = products[0];
-  console.log(products.title);
   return (
     <div className="main">
       <div className="card"></div>
