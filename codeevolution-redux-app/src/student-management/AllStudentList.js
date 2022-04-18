@@ -1,17 +1,29 @@
 import React from "react"
-import { useTable } from "react-table"
-const StudentMainList = ({ columns, data }) => {
+import { useTable,usePagination } from "react-table"
+const AllStudentList = ({ columns, data }) => {
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
     prepareRow,
+    pageOptions,
+    gotoPage,
+    pageCount,
+    setPageSize,
     state,
   } = useTable({
     columns,
     data,
-  })
+  },
+  usePagination
+  )
+
+  const {pageIndex,pageSize } = state
   return (
     <div className="flex flex-col w-full">
       <div className="-my-2 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -25,7 +37,7 @@ const StudentMainList = ({ columns, data }) => {
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map(column => (
                     <th
-                      className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 bg-gray-200 text-left font-bold leading-4  text-gray-500 text-sm uppercase tracking-wider"
                       {...column.getHeaderProps()}
                     >
                       {column.render("Header")}
@@ -38,7 +50,7 @@ const StudentMainList = ({ columns, data }) => {
               className="bg-white divide-y divide-gray-200"
               {...getTableBodyProps()}
             >
-              {rows.map((row, i) => {
+              {page.map((row, i) => {
                 prepareRow(row)
                 return (
                   <tr {...row.getRowProps()}>
@@ -57,9 +69,32 @@ const StudentMainList = ({ columns, data }) => {
               })}
             </tbody>
           </table>
+          
         </div>
       </div>
+      <div className="flex justify-end gap-12 pt-4">
+          <span>
+              page{''}
+              <strong>
+                  {pageIndex + 1} of {pageOptions.length}
+              </strong>{''}
+          </span>
+          <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
+              {
+                  [5,10,25,50].map(pageSize => (
+                      <option key={pageSize} value={pageSize}>
+                       Show {pageSize}
+                      </option>
+                  
+                  ))}
+
+          </select>
+              <button  onClick={() =>gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</button>
+              <button  onClick={() =>previousPage()} disabled={!canPreviousPage}>Previous</button>
+              <button  onClick={() =>nextPage()} disabled={!canNextPage}>Next</button>
+              <button  onClick={() =>gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</button>
+          </div>
     </div>
   )
 }
-export default StudentMainList
+export default AllStudentList
