@@ -1,159 +1,138 @@
 import React, { useState} from "react"
-import data from "../src/student-management/data"
-import AllStudentList from "./student-management/AllStudentList"
+import "antd/dist/antd.css";
+import {AiOutlineEdit , AiOutlineDelete} from "react-icons/ai"
+import { Modal,Button,Input } from "antd"
+// import data from "../src/student-management/data";
+import dataone from "../src/student-management/dataone";
+import DataTable from "./student-management/DataTable";
+import { ColumnFilter } from "./student-management/ColumnFilter";
 // import Login from "../src/student-management/Login"
-import EditableRow from "./student-management/EditableRow"
-import ReadOnlyRow  from "./student-management/ReadOnlyRow"
 function App() {
 
-  
-  const [rowdata, setRowData] = useState(data)
+  const [isEditing,setIsEditing]=useState(false)
+  const [editingStudent,setEditingStudent] = useState(null)
 
-
-  const [contacts, setContacts] = useState(data);
-  const [addFormData, setAddFormData] = useState({
-    admission_number: "",
-    first_namess: "",
-    last_name: "",
-    fee_status: "",
-  });
-
-  const [editFormData, setEditFormData] = useState({
-    admission_number: "",
-    first_namess: "",
-    last_name: "",
-    fee_status: "",
-  });
-
-  const [editContactId, setEditContactId] = useState(null);
-
-  const handleAddFormChange = (event) => {
-    event.preventDefault();
-
-    const fieldName = event.target.getAttribute("name");
-    const fieldValue = event.target.value;
-
-    const newFormData = { ...addFormData };
-    newFormData[fieldName] = fieldValue;
-
-    setAddFormData(newFormData);
-  };
-
-  const handleEditFormChange = (event) => {
-    event.preventDefault();
-
-    const fieldName = event.target.getAttribute("name");
-    const fieldValue = event.target.value;
-
-    const newFormData = { ...editFormData };
-    newFormData[fieldName] = fieldValue;
-
-    setEditFormData(newFormData);
-  };
-
-  const handleAddFormSubmit = (event) => {
-    event.preventDefault();
-
-    const newContact = {
-      id: addFormData.AddDta,
-      admission_number: addFormData.fullName,
-      first_namess: addFormData.address,
-      last_name: addFormData.phoneNumber,
-      fee_status: addFormData.email,
-    };
-
-    const newContacts = [...contacts, newContact];
-    setContacts(newContacts);
-  };
-
-  const handleEditFormSubmit = (event) => {
-    event.preventDefault();
-
-    const editedContact = {
-      id: editContactId,
-      admission_number: editFormData.fullName,
-      first_namess: editFormData.address,
-      last_name: editFormData.phoneNumber,
-      fee_status: editFormData.email,
-    };
-
-    const newContacts = [...contacts];
-
-    const index = contacts.findIndex((contact) => contact.id === editContactId);
-
-    newContacts[index] = editedContact;
-
-    setContacts(newContacts);
-    setEditContactId(null);
-  };
-
-  const handleEditClick = (event, contact) => {
-    event.preventDefault();
-    setEditContactId(contact.id);
-
-    const formValues = {
-      admission_number: contact.fullName,
-      first_namess: contact.address,
-      last_name: contact.phoneNumber,
-      fee_status: contact.email,
-    };
-
-    setEditFormData(formValues);
-  };
-
-  const handleCancelClick = () => {
-    setEditContactId(null);
-  };
-
-  const handleDeleteClick = (contactId) => {
-    const newContacts = [...contacts];
-
-    const index = contacts.findIndex((contact) => contact.id === contactId);
-
-    newContacts.splice(index, 1);
-
-    setContacts(newContacts);
-  };
-
-
-
+  const [rowdata, setRowData] = useState(dataone)
+  const onEditStudent = () => {
+    setIsEditing(true)
+    setEditingStudent()
+  }
+  //  for admin login
   const columns = [
+    {
+      Header: "id",
+      accessor: "id",
+      Filter:ColumnFilter
+    },
+    {
+      Header: "admission_number",
+      accessor: "admission_number",
+      Filter:ColumnFilter
+    },
+    {
+      Header: "first_name",
+      accessor: "first_name",
+      Filter:ColumnFilter
+    },
+    {
+      Header: "last_name",
+      accessor: "last_name",
+      Filter:ColumnFilter
+    },
+    {
+      Header: "fee_status",
+      accessor: "fee_status",
+      Filter:ColumnFilter
+    },
+    {
+      Header: 'action',
+      accessor: 'action',
+      Cell: () => (
+          <div className="flex items-center">
+          <Button style={{color:"white", backgroundColor: "blue", borderRadius:"25px",fontWeight:"bold"}} onClick={() =>onEditStudent() }> Edit</Button>
+          </div>
+      
+      ),
+      Filter:ColumnFilter
+    },
+  ];
+
+  // for teacher login
+  const teachercolumns = [
     {
       Header: "id",
       accessor: "id",
     },
     {
-      Header: "admission_number",
-      accessor: "admission_number",
+      Header: "class",
+      accessor: "class",
     },
     {
-      Header: "first_name",
-      accessor: "first_name",
+      Header: 'action',
+      accessor: 'action',
+      Cell: () => (
+          <div className="flex items-center">
+          <Button style={{color:"white", backgroundColor: "blue", borderRadius:"25px",fontWeight:"bold"}} onClick={() =>onEditStudent() }> Edit</Button>
+          </div>
+      
+      ),
     },
-    {
-      Header: "last_name",
-      accessor: "last_name",
-    },
-    {
-      Header: "fee_status",
-      accessor: "fee_status",
-    },
-    {
-      Header: "actions",
-      accessor: "actions",
-    },
-    
-  ]
-  
+  ];
+  const resetEditing =()=> {
+    setIsEditing(false)
+    setEditingStudent(null)
+  }
   return (
-    <div className="bg-purple-300 h-screen">
+    <div className="h-screen">
     <div className="container m-auto w-11/12">
-      <h2 className="text-center font-extrabold ">All Students List</h2>
       <div className="flex justify-center mt-8">
-        <AllStudentList columns={columns} data={rowdata} />
+        {/* <DataTable columns={columns} data={rowdata} title="All Students List"/> */}
         {/* <Login /> */}
+        <DataTable columns={teachercolumns} data={rowdata} title="All Class List"/> 
       </div>
     </div>
+
+    <Modal
+    title="Edit Student"
+    visible={isEditing}
+    onCancel={()=>{
+      resetEditing()
+    }}
+    onOk={()=>{
+      setRowData((pre) => {
+        return pre.map((student) => {
+          if (student.id === editingStudent.id) {
+            return editingStudent;
+          } else {
+            return student;
+          }
+        });
+      });
+      resetEditing()
+    }}
+    okText="save"
+    >
+    <Input style={{margin:"10px"}} value={editingStudent ?.admission_number} placeholder="admission_number" onChange={(e) => {
+      setEditingStudent(rowdata=> {
+        return {...rowdata,admission_number:editingStudent.target.value}
+      })
+    }}></Input>
+    <Input style={{margin:"10px"}} value={editingStudent ?.first_name} placeholder="first_name" onChange={(e) => {
+      setEditingStudent(rowdata=> {
+        return {...rowdata,first_name:editingStudent.target.value}
+      })
+    }}></Input>
+    <Input style={{margin:"10px"}} value={editingStudent ?.last_name} placeholder="last_name" onChange={(e) => {
+      setEditingStudent(rowdata=> {
+        return {...rowdata,last_name:editingStudent.target.value}
+      })
+    }}></Input>
+    <Input style={{margin:"10px"}} value={editingStudent ?.fee_status} placeholder="fee_status" onChange={(e) => {
+      setEditingStudent(rowdata=> {
+        return {...rowdata,fee_status:editingStudent.target.value}
+      })
+    }}></Input>
+    </Modal>
     </div>
   )
 }
