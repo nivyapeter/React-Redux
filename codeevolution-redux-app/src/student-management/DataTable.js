@@ -1,5 +1,8 @@
 import React from "react";
-import { useTable, usePagination,} from "react-table";
+import { useTable, usePagination,useSortBy} from "react-table";
+
+
+
 const DataTable = ({ columns, data,title }) => {
   
   const {
@@ -22,30 +25,29 @@ const DataTable = ({ columns, data,title }) => {
       columns,
       data,
     },
-    usePagination
+    
+    useSortBy,
+    usePagination,
   );
 
   const { pageIndex, pageSize } = state;
   return (
     <div className="flex flex-col w-full ">
-      <div className="-my-2 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div className="-my-2 pb-2 pt-6 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div className="align-middle inline-block min-w-full shadow sm:rounded-lg border-b border-gray-200">
-        <h2 className="text-center font-extrabold text-xl -mt-3 text-white">{title}</h2>
+        <h2 className="text-center font-extrabold text-xl -mt-2 pb-4 text-white">{title}</h2>
           <table
-            className="min-w-full divide-y divide-gray-200"
+            className="divide-y divide-gray-200 bg-gray-500 md:w-full"
             {...getTableProps()}
           >
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
-                    <th
-                      className="px-6 py-3 bg-gray-200 text-left font-bold leading-4  text-gray-500 text-sm uppercase tracking-wider"
-                      {...column.getHeaderProps()}
-                    >
-                      {column.render("Header")}
-                      
-                    </th>
+                   <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                   {column.render('Header')}
+                   {/* Add a sort direction indicator */}
+                 </th>
                   ))}
                 </tr>
               ))}
@@ -62,7 +64,7 @@ const DataTable = ({ columns, data,title }) => {
                     {row.cells.map((cell) => {
                       return (
                         <td
-                          className="px-6 py-2 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900"
+                          className="md:px-6 py-2 px-4 text-center whitespace-no-wrap text-sm leading-5 font-medium text-gray-900"
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}
@@ -76,7 +78,7 @@ const DataTable = ({ columns, data,title }) => {
           </table>
         </div>
       </div>
-      <div className="flex justify-end gap-12 pt-4">
+      <div className="flex md:justify-end md:gap-12 gap-2 items-center pt-4">
         <span>
           page{""}
           <strong>
@@ -84,7 +86,7 @@ const DataTable = ({ columns, data,title }) => {
           </strong>
           {""}
         </span>
-        <select
+        <select className="h-[4vh]"
           value={pageSize}
           onChange={(e) => setPageSize(Number(e.target.value))}
         >

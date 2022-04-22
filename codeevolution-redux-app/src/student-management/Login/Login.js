@@ -29,10 +29,10 @@ function Login() {
         }
       )
       .then((response) => {
-        const decodedUser = decodedAccessToken(response.data.access);
+        const decodedUser = response?.data?.access && decodedAccessToken(response.data.access);
         setUserToken("access_token", response.data.access);
         setUserToken("refresh_token", response.data.refresh);
-        setLoginData(decodedUser);
+        decodedUser && setLoginData(decodedUser);
       })
       .catch((err) => {
         // show error message
@@ -49,7 +49,7 @@ function Login() {
   }, [loginData, navigate]);
 
   return (
-    <div className="h-screen flex w-4/12 items-center">
+    <div className="h-screen flex  items-center">
       <div className="login-wrapper w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
         <h1 className="text-2xl font-bold text-primary mt-4 mb-12 text-center">
           Please Log In
